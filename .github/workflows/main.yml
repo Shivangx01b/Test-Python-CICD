@@ -1,6 +1,4 @@
-# This is a basic workflow to help you get started with Actions
-
-name: CI
+name: Cdefense Github Action Example
 
 # Controls when the workflow will run
 on:
@@ -10,8 +8,7 @@ on:
   pull_request:
     branches: [ "main" ]
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -32,5 +29,4 @@ jobs:
           curl https://raw.githubusercontent.com/CloudDefenseAI/cd/master/latest/cd-latest-linux-x64.tar.gz > /tmp/cd-latest-linux-x64.tar.gz && tar -C /usr/local/bin -xzf /tmp/cd-latest-linux-x64.tar.gz && chmod +x /usr/local/bin/cdefense
           echo running scan on $(pwd)
           export SCAN_URL=https://console.clouddefenseai.com
-          echo $APIKEY
-          cdefense clidocker --api-key=${{ secrets.API_KEY }} --scan-url=https://console.clouddefenseai.com --path=$(pwd) --project-name=CICDTESTACTION2
+          cdefense clidocker --api-key=${{ secrets.API_KEY }} --scan-url=https://console.clouddefenseai.com --path=$(pwd) --project-name=CICDGITHUBACTIONS
