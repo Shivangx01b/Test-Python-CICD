@@ -25,13 +25,15 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      # Runs a single command using the runners shell
+      # Runs a single command using the runners shellcdefense clidocker --api-key=6262fe7f-1434-2711-78fa-268ce4187339 --scan-url=https://dev.clouddefenseai.com --path=$(pwd) --project-name=TESTPY2
       - name: Run a one-line script
         run: ls -la
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
-          echo Add other actions to build,
-          ls -la
-          pwd
+          echo Downloading cdefense CLI
+          curl https://raw.githubusercontent.com/CloudDefenseAI/cd/master/latest/cd-latest-linux-x64.tar.gz > /tmp/cd-latest-linux-x64.tar.gz && tar -C /usr/local/bin -xzf /tmp/cd-latest-linux-x64.tar.gz && chmod +x /usr/local/bin/cdefense
+          echo running scan on $(pwd)
+          export SCAN_URL=https://console.clouddefenseai.com
+          cdefense clidocker --api-key=10af2bce-0d96-cc1a-a292-7879db2c1a68 --scan-url=https://console.clouddefenseai.com --path=$(pwd) --project-name=CICDTESTACTION
