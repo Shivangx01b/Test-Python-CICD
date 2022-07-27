@@ -25,9 +25,6 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      - shell: bash
-        env:
-          APIKEY: ${{ secrets.API_KEY }}
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
@@ -36,4 +33,4 @@ jobs:
           echo running scan on $(pwd)
           export SCAN_URL=https://console.clouddefenseai.com
           echo $APIKEY
-          cdefense clidocker --api-key=$APIKEY --scan-url=https://console.clouddefenseai.com --path=$(pwd) --project-name=CICDTESTACTION2
+          cdefense clidocker --api-key=${{ secrets.API_KEY }} --scan-url=https://console.clouddefenseai.com --path=$(pwd) --project-name=CICDTESTACTION2
