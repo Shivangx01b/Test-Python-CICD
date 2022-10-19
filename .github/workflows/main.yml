@@ -29,4 +29,4 @@ jobs:
           curl https://raw.githubusercontent.com/CloudDefenseAI/cd/master/latest/cd-latest-linux-x64.tar.gz > /tmp/cd-latest-linux-x64.tar.gz && tar -C /usr/local/bin -xzf /tmp/cd-latest-linux-x64.tar.gz && chmod +x /usr/local/bin/cdefense
           echo running scan on $(pwd)
           export SCAN_URL=https://console.clouddefenseai.com
-          cdefense clidocker --api-key=${{ secrets.API_KEY }} --scan-url=https://console.clouddefenseai.com --path=$(pwd) --project-name=CICDGITHUBACTIONS
+          cdefense clidocker --api-key=${{ secrets.API_KEY }} --scan-url=https://console.clouddefenseai.com --path=$(pwd) --project-name=CICDGITHUBACTIONS --tag=shivdev
