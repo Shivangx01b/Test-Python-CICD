@@ -1,32 +1,22 @@
-name: Cdefense Github Action Example
+name: Docker Image CI
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
-  push:
-    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
+env:
+  GITHUB_PR_NUMBER: ${{github.event.pull_request.number}}
+  REPO_URL: ${{ github.server_url }}/${{ github.repository }}
+  API_KEY: ${{ secrets.CDKEY }}
 
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
+  pre-build:
+    runs-on: ubuntu-20.04
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: scan code for vulnerabiliti
         run: |
           echo Downloading cdefense CLI
-          curl -LO https://github.com/CloudDefenseAI/cd/releases/download/1.36.4/cd-latest-linux-x64.tar.gz && tar -xf cd-latest-linux-x64.tar.gz && cp cdefense /usr/local/bin && chmod +x /usr/local/bin/cdefense
-          echo running scan on $(pwd)
-          export SCAN_URL=https://console.clouddefenseai.com
-          cdefense clidocker --api-key=${{ secrets.API_KEY }} --scan-url=https://console.clouddefenseai.com --path=$(pwd) --project-name=CICDGITHUB --tag=shivdev
+          curl -L https://github.com/CloudDefenseAI/cd/releases/download/1.38.4/cd-latest-linux-x64.tar.gz > /tmp/cd-latest-linux-x64.tar.gz && tar -C /usr/local/bin -xzf /tmp/cd-latest-linux-x64.tar.gz && chmod +x /usr/local/bin/cd-latest-linux-x64
+          cd-latest-linux-x64 online --api-key=API_KEY --repository-url="$REPO_URL" --pr-id="$GITHUB_PR_NUMBER" --type=GITHUB
