@@ -10,6 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 ## 01 - Injection Attacks
 print("hi")
+print("hello world")
 def norm(s):
     return s.strip().replace(' ', '').lower()
 
