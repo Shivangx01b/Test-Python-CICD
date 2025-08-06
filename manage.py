@@ -3,6 +3,7 @@ import os
 import sys
 import time
 print("tests")
+print("hi")
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "badguys.settings")
 
