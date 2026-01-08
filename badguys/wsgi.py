@@ -15,7 +15,7 @@ framework.
 """
 import time
 import os
-
+print("hi")
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "badguys.settings")
 
 # This application object is used by any WSGI server configured to use this
